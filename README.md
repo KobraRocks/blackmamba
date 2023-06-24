@@ -10,6 +10,8 @@ BlackMamba main features:
 4. Configuration-based Setup: With BlackMamba, you can configure modules and their dependencies using JSON files or other configuration mechanisms. This simplifies the setup process and allows for easy customization and extension of the application.
 5. Error Handling: BlackMamba provides mechanisms for handling module loading and registration errors. It helps identify missing or misconfigured modules, making it easier to troubleshoot issues and improve overall application stability.
 
+# Documentation Work in progress
+
 ### Usage
 
 To use the `BlackMamba` class, you need to create an instance of it by calling the constructor with an optional configuration object:
