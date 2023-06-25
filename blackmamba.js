@@ -4,7 +4,7 @@ const PACKAGES = "packages";
 
 const jsonLoader = buildJsonLoader();
 
-export class BlackMamba {
+export default class BlackMamba {
 
   #modules;
   #builders;
@@ -19,8 +19,8 @@ export class BlackMamba {
 
   constructor ({    
     rootDirectory = "", 
-    sourcesDirectory = "/sources", 
-    packagesDirectory = "/packages", 
+    sourcesDirectory = "./sources", 
+    packagesDirectory = "./packages", 
     defaultApp, defaultCmd, defaultData } = {} ) 
   {
     this.#modules = new Map();
@@ -34,7 +34,6 @@ export class BlackMamba {
     this.#defaultCmd = defaultCmd;
     this.#defaultData = defaultData;
 
-    this.#modules.set( "jsonLoader", jsonLoader );
     this.#modules.set( "getRootDirectory", () => rootDirectory );
     this.#modules.set( "getSourcesDirectory", () => sourcesDirectory );
     this.#modules.set( "getPackagesDirectory", () => packagesDirectory );
@@ -63,10 +62,11 @@ export class BlackMamba {
 
   hasNotModule ( id ) { return !this.#modules.has( id ); }
   getModule ( id ) { return this.#modules.get( id ); }
+  listModules () { return this.#modules.keys(); }
 
-  run ( packages = [] ) {
+  async run ( packages = [] ) {
      for ( const { pkg, cmd, data } of packages ) {
-       this.execute( pkg, cmd, data );
+       await this.execute( pkg, cmd, data );
     }     
   }
 
@@ -105,18 +105,16 @@ export class BlackMamba {
           }
       }
 
-      const app = this.#modules.get( nextApp );
-
-      return app[cmd]( data );
+      return this.execute( nextApp, cmd, data );
   
   }
 
   async loadPackage ( path = "" ) {
       
     const packagePath = path.startsWith("/") ?
-        this.packageDirectory + path + ".json"
+        this.packagesDirectory + path + ".json"
         :
-        this.packageDirectory + "/" + path + ".json";
+        this.packagesDirectory + "/" + path + ".json";
     
     try {
         
@@ -139,7 +137,7 @@ export class BlackMamba {
       return this.#sources.get( sourcePath );
 
     try {
-        const source = await import( this.sourceDirectory + sourcePath );
+        const source = await import( this.sourcesDirectory + sourcePath );
         this.#sources.set( sourcePath, source );
         return source;
     } catch ( error ) {
@@ -204,7 +202,7 @@ export class BlackMamba {
       return Builder;
   }
 
-  async #getDependencies ({ packages = [], sources = [] }) {
+  async #getDependencies ({ packages = [], sources = [] } = {}) {
 
     const deps = {};
 
