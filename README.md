@@ -1,11 +1,11 @@
-## BlackMamba Class
+## BlackMamba
 
 The `BlackMamba` class is a module management and execution framework that allows developers to register modules, load packages, and execute commands dynamically. It provides a flexible and extensible architecture for building applications with modular components.
 
 
 BlackMamba main features:
 1. Modularity: BlackMamba promotes a modular approach to application development. It allows you to break down your code into reusable modules, making it easier to manage and maintain complex projects.
-2. Dependency Injection: BlackMamba supports dependency injection, which helps decouple modules and allows for easy swapping of dependencies. This promotes code reusability and testability.
+2. Dependency Injection: BlackMamba supports dependency injection, which helps decouple modules and allows for eas443440821y swapping of dependencies. This promotes code reusability and testability.
 3. Dynamic Module Loading: BlackMamba enables dynamic loading of modules, allowing you to load and register modules at runtime. This provides flexibility in managing module dependencies and reduces the initial loading time of an application.
 4. Configuration-based Setup: With BlackMamba, you can configure modules and their dependencies using JSON files or other configuration mechanisms. This simplifies the setup process and allows for easy customization and extension of the application.
 5. Error Handling: BlackMamba provides mechanisms for handling module loading and registration errors. It helps identify missing or misconfigured modules, making it easier to troubleshoot issues and improve overall application stability.
